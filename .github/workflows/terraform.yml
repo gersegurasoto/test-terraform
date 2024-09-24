@@ -19,17 +19,17 @@ jobs:
         terraform_version: 1.5.0  # Cambia a la versión que necesites
 
     - name: Terraform Init
-      run: terraform init -chdir=./dev
+      run: terraform -chdir=./dev init 
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -out=./dev/tfplan -chdir=./dev
+      run: terraform -chdir=./dev plan -out=./dev/tfplan 
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -chdir=./dev/tfplan
+      run: terraform -chdir=./dev apply -auto-approve
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
